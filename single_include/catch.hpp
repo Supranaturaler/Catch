@@ -1,6 +1,6 @@
 /*
  *  CATCH v1.1 build 2 (master branch)
- *  Generated: 2015-03-28 14:06:47.988548
+ *  Generated: 2015-05-19 09:14:10.306718
  *  ----------------------------------------------------------
  *  This file has been merged from multiple headers. Please don't edit it directly
  *  Copyright (c) 2012 Two Blue Cubes Ltd. All rights reserved.
@@ -637,11 +637,11 @@ namespace Catch {
 
     // ResultDisposition::Flags enum
     struct ResultDisposition { enum Flags {
-        Normal = 0x00,
+        Normal = 0x01,
 
-        ContinueOnFailure = 0x01,   // Failures fail test, but execution continues
-        FalseTest = 0x02,           // Prefix expression with !
-        SuppressFail = 0x04         // Failures are reported but do not fail the test
+        ContinueOnFailure = 0x02,   // Failures fail test, but execution continues
+        FalseTest = 0x04,           // Prefix expression with !
+        SuppressFail = 0x08         // Failures are reported but do not fail the test
     }; };
 
     inline ResultDisposition::Flags operator | ( ResultDisposition::Flags lhs, ResultDisposition::Flags rhs ) {
@@ -7414,7 +7414,7 @@ namespace Catch {
         if( !result.isOk() ) {
             if( getCurrentContext().getConfig()->shouldDebugBreak() )
                 m_shouldDebugBreak = true;
-            if( getCurrentContext().getRunner()->aborting() || m_assertionInfo.resultDisposition == ResultDisposition::Normal )
+            if( getCurrentContext().getRunner()->aborting() || (m_assertionInfo.resultDisposition & ResultDisposition::Normal) )
                 m_shouldThrow = true;
         }
     }
